@@ -5,7 +5,7 @@ import { ApiModelProperty } from '@nestjs/swagger';
 export class Prize {
   @ObjectIdColumn()
   @ApiModelProperty()
-  id: ObjectID;
+  id: ObjectID | string;
 
   @Column()
   @ApiModelProperty()

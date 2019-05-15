@@ -1,35 +1,36 @@
-import { Test } from '@nestjs/testing';
+import { Test, TestingModule } from '@nestjs/testing';
 import { PrizesController } from './prizes.controller';
 import { PrizesService } from './prizes.service';
-import { PrizeRepository } from './prize.repository';
 import { CreatePrizeDto } from './dto/create-prize.dto';
+import { Prize } from './prize.entity';
+jest.mock('./prizes.service');
 
 describe('Prize Controller', async () => {
-  let controller: PrizesController;
+  let testingModule: TestingModule;
   let prizeService: PrizesService;
-
-  beforeEach(async () => {
-    const testingModule = await Test.createTestingModule({
+  beforeAll(async () => {
+    testingModule = await Test.createTestingModule({
       controllers: [PrizesController],
-      providers: [
-        PrizesService,
-        {
-          provide: 'PrizeRepository',
-          useValue: PrizeRepository,
-        },
-      ],
+      providers: [PrizesService],
     }).compile();
-    controller = testingModule.get<PrizesController>(PrizesController);
+  });
+  beforeEach(() => {
     prizeService = testingModule.get<PrizesService>(PrizesService);
   });
-
-  describe('prizeCreate', async () => {
+  describe('prizeCreate', () => {
     it('should create prize entry', async () => {
-      const params: CreatePrizeDto = {
+      const params: Prize = {
+        id: '5cdbf8861b2a557278d3efae',
+        myNumber: 1,
+      };
+      const reqParams: CreatePrizeDto = {
         pNumber: 1,
       };
-      const admin = await controller.create(params);
-      expect(admin);
+      jest.spyOn(prizeService, 'create').mockResolvedValue(params);
+      const appController = testingModule.get<PrizesController>(
+        PrizesController,
+      );
+      expect(await appController.create(reqParams)).toBe(params);
     });
   });
 });
