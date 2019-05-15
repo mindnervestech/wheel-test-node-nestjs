@@ -21,6 +21,7 @@ export class PrizesController {
   logger = new Logger('CommentController');
   constructor(private readonly prizesService: PrizesService) {}
 
+  // Create a new record
   @Post()
   @ApiOperation({ title: 'Create prize' })
   @ApiResponse({
@@ -30,6 +31,7 @@ export class PrizesController {
   })
   @UsePipes(new ValidationPipe())
   async create(@Body() createPrizeDto: CreatePrizeDto) {
+    // calling create method from prizeservice
     return await this.prizesService.create(createPrizeDto);
   }
 }

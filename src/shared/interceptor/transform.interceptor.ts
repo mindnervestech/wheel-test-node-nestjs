@@ -12,6 +12,7 @@ export interface Response<T> {
   data: T;
 }
 
+// Interceptor for success responses in case of POST, DELETE, PUT, GET
 @Injectable()
 export class TransformInterceptor<T>
   implements NestInterceptor<T, Response<T>> {
@@ -32,15 +33,13 @@ export class TransformInterceptor<T>
     } else if (method == 'GET') {
       return next.handle().pipe(map(data => ({ status: HttpStatus.OK, data })));
     } else if (method == 'PUT') {
-      return next
-        .handle()
-        .pipe(
-          map(data => ({
-            status: HttpStatus.OK,
-            message: 'Updated Successfully',
-            data,
-          })),
-        );
+      return next.handle().pipe(
+        map(data => ({
+          status: HttpStatus.OK,
+          message: 'Updated Successfully',
+          data,
+        })),
+      );
     } else if (method == 'DELETE') {
       return next.handle().pipe(
         map(data => ({

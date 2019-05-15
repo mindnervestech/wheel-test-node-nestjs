@@ -9,6 +9,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
 
+  // Swagger configuation option
   const options = new DocumentBuilder()
     .setTitle('NestJS Example App')
     .setDescription('The API description')
@@ -16,6 +17,7 @@ async function bootstrap() {
     .setBasePath('api')
     .build();
   const document = SwaggerModule.createDocument(app, options);
+  // Swagger route
   SwaggerModule.setup('/docs', app, document);
 
   await app.listen(3000);
