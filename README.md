@@ -20,6 +20,9 @@ $ npm run start
 
 # watch mode
 $ npm run start:dev
+
+# testing
+$ npm run test
 ```
 
 ## Api to test
