@@ -12,6 +12,13 @@ $ npm install
 rename ormconfig.json.example to ormconfig.json
 ```
 
+## Testing the app
+
+```bash
+# testing
+$ npm run test
+```
+
 ## Running the app
 
 ```bash
@@ -20,9 +27,12 @@ $ npm run start
 
 # watch mode
 $ npm run start:dev
+```
 
-# testing
-$ npm run test
+## Swagger
+
+```
+http://localhost:3000/docs
 ```
 
 ## Api to test
